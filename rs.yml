@@ -1,0 +1,21 @@
+#Author: Madhu Ponnam
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-demo
+  labels:
+    app: my-rs-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-rs-app
+  template:
+    metadata:
+      labels:
+        app: my-rs-app
+        env: dev
+    spec:
+      containers:
+        - name: my-rs-pod
+          image: nginx

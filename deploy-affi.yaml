@@ -1,0 +1,31 @@
+#Author: Madhu Ponnam
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: affinity-deployment
+  annotations:
+   kubernetes.io/change-cause: "decreased no of replicas"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: affine-deploy
+  template:
+    metadata:
+      name: affinity-deployment
+      labels:
+        app: affine-deploy
+    spec:
+      containers:
+        - name: nginx-app
+          image: nginx
+      affinity:
+        nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                     - key: storage
+                       operator: In
+                       values:
+                        - ssd

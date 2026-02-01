@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tt-deploy
+  labels: 
+    app: tt-deploy
+spec:
+  replicas: 3
+  selector: 
+    matchLabels:
+      app: tt-deploy
+  template:
+    metadata:
+      labels:
+        app: tt-deploy
+    spec:
+      tolerations:
+        - key: "storage"
+          operator: "Equal"
+          value: "sdd"
+          effect: "NoSchedule"
+      containers:
+        - name: nginx
+          image: nginx
+

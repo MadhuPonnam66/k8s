@@ -1,0 +1,24 @@
+#author: madhuPonnam
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deploy
+  labels:
+    app: deploy-demo
+  annotations:
+    message: "this is version 3"
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: deploy-demo
+  template:
+    metadata:
+      labels:
+        app: deploy-demo
+        env: dev
+    spec:
+        containers:
+          - name: deploy-demo
+            image: nginx:1.27

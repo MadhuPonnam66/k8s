@@ -1,0 +1,41 @@
+---
+#Author: Madhu Ponnam
+#Deployment for backend
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deploy
+  labels:
+    app: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: http-echo
+          image: hashicorp/http-echo
+          args:
+            - "-text=hello Madhu from backend"
+            - "-listen=:9090"
+
+---
+#service for the backend
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-svc
+  labels:
+    app: backend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 9090
+  selector:
+      app: backend

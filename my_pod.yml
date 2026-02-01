@@ -1,0 +1,15 @@
+#Author: Madhu Ponnam
+apiVersion: v1
+kind: Pod
+metadata:
+   name: my-pod-2
+   labels:
+      app: my-app
+      environment: Development
+spec:
+   containers:
+     - name: nginx-container
+       image: nginx
+       ports:
+         - containerPort: 80
+   nodeName: my-cluster-worker  
